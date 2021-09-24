@@ -1,3 +1,160 @@
+# 3.2.28 / 2021-09-22
+
+## Enhancements:
+
+* Support MINGW-UCRT. Pull request #4925 by hsbt
+* Only check if descriptions *start with* FIXME/TODO. Pull request #4841
+  by duckinator
+* Avoid loading `uri` unnecessarily when activating gems. Pull request
+  #4897 by deivid-rodriguez
+
+## Bug fixes:
+
+* Fix redacted credentials being sent to gemserver. Pull request #4919 by
+  jdliss
+
+# 3.2.27 / 2021-09-03
+
+## Enhancements:
+
+* Redact credentails when printing URI. Pull request #4868 by intuxicated
+* Prefer `require_relative` to `require` for internal requires. Pull
+  request #4858 by deivid-rodriguez
+* Prioritise gems with higher version for fetching metadata, and stop
+  fetching once we find a valid candidate. Pull request #4843 by intuxicated
+
+# 3.2.26 / 2021-08-17
+
+## Enhancements:
+
+* Enhance the error handling for loading the
+  `rubygems/defaults/operating_system` file. Pull request #4824 by
+  intuxicated
+* Ignore `RUBYGEMS_GEMDEPS` for the bundler gem. Pull request #4532 by
+  deivid-rodriguez
+
+## Bug fixes:
+
+* Also load user installed rubygems plugins. Pull request #4829 by
+  deivid-rodriguez
+
+# 3.2.25 / 2021-07-30
+
+## Enhancements:
+
+* Don't load the `base64` library since it's not used. Pull request #4785
+  by deivid-rodriguez
+* Don't load the `resolv` library since it's not used. Pull request #4784
+  by deivid-rodriguez
+* Lazily load `shellwords` library. Pull request #4783 by deivid-rodriguez
+* Check requirements class before loading marshalled requirements. Pull
+  request #4651 by nobu
+
+## Bug fixes:
+
+* Add missing `require 'fileutils'` in `Gem::ConfigFile`. Pull request
+  #4768 by ybiquitous
+
+# 3.2.24 / 2021-07-15
+
+## Bug fixes:
+
+* Fix contradictory message about deletion of default gem. Pull request
+  #4739 by jaredbeck
+
+## Documentation:
+
+* Add a description about `GEM_HOST_OTP_CODE` to help text. Pull request
+  #4742 by ybiquitous
+
+# 3.2.23 / 2021-07-09
+
+## Enhancements:
+
+* Rewind IO source to allow working with contents in memory. Pull request
+  #4729 by drcapulet
+
+# 3.2.22 / 2021-07-06
+
+## Enhancements:
+
+* Allow setting `--otp` via `GEM_HOST_OTP_CODE`. Pull request #4697 by
+  CGA1123
+* Fixes for the edge case when openssl library is missing. Pull request
+  #4695 by rhenium
+
+# 3.2.21 / 2021-06-23
+
+## Enhancements:
+
+* Fix typo in OpenSSL detection. Pull request #4679 by osyoyu
+* Add the most recent licenses from spdx.org. Pull request #4662 by nobu
+* Simplify setup.rb code to allow installing rubygems from source on
+  truffleruby 21.0 and 21.1. Pull request #4624 by deivid-rodriguez
+
+## Bug fixes:
+
+* Create credentials folder when setting API keys if not there yet. Pull
+  request #4665 by deivid-rodriguez
+
+# 3.2.20 / 2021-06-11
+
+## Security fixes:
+
+* Verify plaform before installing to avoid potential remote code
+  execution. Pull request #4667 by sonalkr132
+
+## Enhancements:
+
+* Add better specification policy error description. Pull request #4658 by
+  ceritium
+
+# 3.2.19 / 2021-05-31
+
+## Enhancements:
+
+* Fix `gem help build` output format. Pull request #4613 by tnir
+
+# 3.2.18 / 2021-05-25
+
+## Enhancements:
+
+* Don't leave temporary directory around when building extensions to
+  improve build reproducibility. Pull request #4610 by baloo
+
+# 3.2.17 / 2021-05-05
+
+## Enhancements:
+
+* Only print month & year in deprecation messages. Pull request #3085 by
+  Schwad
+* Make deprecate method support ruby3's keyword arguments. Pull request
+  #4558 by mame
+* Update the default bindir on macOS. Pull request #4524 by nobu
+* Prefer File.open instead of Kernel#open. Pull request #4529 by mame
+
+## Documentation:
+
+* Fix usage messages to reflect the current POSIX-compatible behaviour.
+  Pull request #4551 by graywolf-at-work
+
+# 3.2.16 / 2021-04-08
+
+## Bug fixes:
+
+* Correctly handle symlinks. Pull request #2836 by voxik
+
+# 3.2.15 / 2021-03-19
+
+## Enhancements:
+
+* Prevent downgrades to untested rubygems versions. Pull request #4460 by
+  deivid-rodriguez
+
+## Bug fixes:
+
+* Fix missing require breaking `gem cert`. Pull request #4464 by lukehinds
+
 # 3.2.14 / 2021-03-08
 
 ## Enhancements:
@@ -706,7 +863,7 @@
 * Clean which command. Pull request #2801 by Luis Sagastume.
 * Upgrading S3 source signature to AWS SigV4. Pull request #2807 by
   Alexander Pakulov.
-* Remove missleading comment, no reason to move Gem.host to Gem::Util.
+* Remove misleading comment, no reason to move Gem.host to Gem::Util.
   Pull request #2811 by Luis Sagastume.
 * Drop support for 'gem env packageversion'. Pull request #2813 by Luis
   Sagastume.
@@ -1706,7 +1863,7 @@ Security fixes:
 * Clean up the PathSupport object. Pull request #1094 by Aaron Patterson.
 * Join with File::PATH_SEPARATOR in Gem.use_paths. Pull request #1476 by
   Samuel E. Giddins.
-* Handle when the gem home and gem path arent set in the config file. Pull
+* Handle when the gem home and gem path aren't set in the config file. Pull
   request #1478 by Samuel E. Giddins.
 * Terminate TimeoutHandler. Pull request #1479 by Nobuyoshi Nakada.
 * Remove redundant cache. Pull request #1482 by Eileen M. Uchitelle.
@@ -2051,7 +2208,7 @@ This release was sponsored by Ruby Central.
 * Fixed activating gems from a Gemfile for default gems.  Issue #991 by khoan.
 * Fixed windows stub script generation for Cygwin.  Issue #1000 by Brett
   DiFrischia.
-* Allow gem bindir and ruby.exe to live in separate diretories.  Pull request
+* Allow gem bindir and ruby.exe to live in separate directories.  Pull request
   #942 by Ian Flynn.
 * Fixed handling of gemspec in gem dependencies files to match Bundler
   behavior.  Issue #1020 by Michal Papis.
@@ -2145,7 +2302,7 @@ This release was sponsored by Ruby Central.
 * Gem.use_gemdeps now accepts an argument specifying the path of the gem
   dependencies file.  When the file is not found an ArgumentError is raised.
 * Writing a .lock file for a gem dependencies file is now controlled by the
-  --[no-]lock option.  Pull reuqest #774 by Jeremy Evans.
+  --[no-]lock option.  Pull request #774 by Jeremy Evans.
 * Suggestion of alternate names and spelling corrections during install can be
   suppressed with the --no-suggestions option.  Issue #867 by Jimmy Cuadra.
 * Added mswin64 support.  Pull request #881 by U. Nakamura.
@@ -2244,7 +2401,7 @@ This release was sponsored by Ruby Central.
 * Check for nil extensions as BasicSpecification does not initialize them.
   Pull request #882 by André Arko.
 * Fixed Gem::BasicSpecification#require_paths receives a String for
-  @require_paths. Pull requrest #904 by @danielpclark
+  @require_paths. Pull request #904 by @danielpclark
 * Fixed circular require warnings.  Bug #908 by Zachary Scott.
 * Gem::Specification#require_paths can no longer accidentally be an Array.
   Pull requests #904, #909 by Daniel P. Clark.
@@ -3680,7 +3837,7 @@ build arguments.
   * Fixed `gem contents` to work with the lightweight specifications
   * Fixed `gem update --system x.y.z` where x.y.z == latest version. (MGPalmer)
   * Fixed gem contents sorting and tests. (MGPalmer)
-  * Fixed intermittant problem in `gem fetch` with --platform specified (quix)
+  * Fixed intermittent problem in `gem fetch` with --platform specified (quix)
   * Fixed lightweight specifications so `gem rdoc` will generate proper
     documentation
   * MockGemUI#terminate_interaction should not raise Gem::SystemExitException.
@@ -4361,7 +4518,7 @@ For a full list of changes to RubyGems, see the git log.
   installation
 * Multi-version diamond dependencies only are installed once
 * Processing a YAML bulk index update takes less memory
-* `gem install -i` makes sure all depenencies are installed
+* `gem install -i` makes sure all dependencies are installed
 * `gem update --system` reinstalls into the prefix it was originally installed
   in
 * `gem update --system` respects --no-rdoc and --no-ri flags
@@ -4401,7 +4558,7 @@ Special thanks to:
 
 If you are experiencing problems with the source index (e.g. strange
 "No Method" errors), or problems with zlib (e.g. "Buffer Error"
-messsage), we recommend upgrading to RubyGems 0.9.4.
+message), we recommend upgrading to RubyGems 0.9.4.
 
 ## Bug fixes:
 

@@ -60,7 +60,7 @@ namespace :spec do
     raise "Couldn't read sudoers file: #{output}" unless status.success?
 
     begin
-      output, status = Open3.capture2e("sudo sed -i '/secure_path/d' /etc/sudoers")
+      output, status = Open3.capture2e("sudo", "sh", "-c", "sed -e'/secure_path/d' /etc/sudoers > /etc/sudoers.bak && mv /etc/sudoers.bak /etc/sudoers")
       raise "Couldn't configure sudo to preserve path: #{output}" unless status.success?
 
       raise "Couldn't configure sudo correctly to preserve path" unless `ruby -v` == `sudo -E ruby -v`
@@ -171,7 +171,7 @@ Automatiek::RakeTask.new("thor") do |lib|
 end
 
 # We currently include the official version as of
-# https://github.com/ruby/tmpdir/tree/a3e06bd49829dc49c346aa10f8b91116fd7e17ad,
+# https://github.com/ruby/tmpdir/commit/c79bc7adf66a39617d0d6bae21085adc77c02b0e
 # with the following changes on top:
 # * require fileutils relatively to use our vendored version.
 # * Inherit from `Dir` so that code assuming we're inside the
@@ -208,18 +208,18 @@ Automatiek::RakeTask.new("net-http-persistent") do |lib|
   lib.prefix = "Bundler::Persistent"
   lib.vendor_lib = "lib/bundler/vendor/net-http-persistent"
 
+  # We currently include the official version as of
+  # https://github.com/mperham/connection_pool/commit/c5aef742642def23664c4d9c15d12f0786347fb8.
   lib.dependency("connection_pool") do |sublib|
-    sublib.version = "v2.2.2"
+    sublib.version = "master"
     sublib.download = { :github => "https://github.com/mperham/connection_pool" }
     sublib.namespace = "ConnectionPool"
     sublib.prefix = "Bundler"
     sublib.vendor_lib = "lib/bundler/vendor/connection_pool"
   end
 
-  # We currently include changes over the official version to require internal paths
-  # relatively.
   lib.dependency("uri") do |sublib|
-    sublib.version = "v0.10.0"
+    sublib.version = "v0.10.1"
     sublib.download = { :github => "https://github.com/ruby/uri" }
     sublib.namespace = "URI"
     sublib.prefix = "Bundler"
